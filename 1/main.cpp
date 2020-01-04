@@ -22,13 +22,16 @@ int main() {
   input.open("input");
   if (input.is_open()) {
     std::string line;
-    int accum = 0;
+    int accumPartOne = 0;
+    int accumPartTwo = 0;
     while (std::getline(input, line)) {
       const int lineAsNum = std::stoi(line);
       std::cout << "Read input: " << lineAsNum << std::endl;
-      accum += fuelNeededPartTwo(lineAsNum);
-      std::cout << "Accumulated fuel: " << accum << std::endl;
+      accumPartOne += fuelNeededPartOne(lineAsNum);
+      accumPartTwo += fuelNeededPartTwo(lineAsNum);
     }
+    std::cout << "Accumulated fuel part 1: " << accumPartOne << std::endl;
+    std::cout << "Accumulated fuel part 2: " << accumPartTwo << std::endl;
   } else {
     std::cout << "Couldn't open file" << std::endl;
   }
