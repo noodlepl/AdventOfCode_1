@@ -18,8 +18,7 @@ int fuelNeededPartTwo(int mass) {
 }
 
 int main() {
-  std::ifstream input;
-  input.open("input");
+  std::ifstream input("input");
   if (input.is_open()) {
     std::string line;
     int accumPartOne = 0;
