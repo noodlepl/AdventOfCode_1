@@ -5,11 +5,19 @@
 #ifndef ADVENTOFCODE_INTCODE_HPP
 #define ADVENTOFCODE_INTCODE_HPP
 
+#include <vector>
+namespace aoc {
+  class Intcode {
+  public:
+    Intcode(std::vector<int> program);
 
-class Intcode {
+    void run();
+    void display();
 
-};
-
+  private:
+    std::vector<int> program_;
+  };
+}
 
 
 #endif //ADVENTOFCODE_INTCODE_HPP
