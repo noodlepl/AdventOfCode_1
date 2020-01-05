@@ -57,24 +57,11 @@ std::vector<Wire> loadInput(const std::string& path) {
 int main() {
   auto wires = loadInput("input");
 
-  auto intersections1 = wires[0].getIntersections(wires[1]);
-  auto intersections2 = wires[1].getIntersections(wires[0]);
+  auto intersections = wires[0].getIntersections(wires[1]);
 
-  assert(intersections1.size() == intersections2.size());
-  const auto vec_size = intersections1.size();
-  std::vector<int> summed_distances;
-  summed_distances.reserve(vec_size);
-
-  for (int i = 0; i < vec_size; ++i) {
-    const auto summed_distance = intersections1[i].total_distance_from_origin +
-                                 intersections2[i].total_distance_from_origin;
-    if (summed_distance != 0)
-      summed_distances.push_back(summed_distance);
-  }
-
-  int min_distance = summed_distances[0];
-  for(auto&& dist : summed_distances) {
-    min_distance = std::min(min_distance, dist);
+  int min_distance = intersections[0].total_distance_from_origin;
+  for(auto&& dist : intersections) {
+    min_distance = std::min(min_distance, dist.total_distance_from_origin);
   }
 
   std::cout << "Fewest steps to intersection is " << min_distance  << std::endl;

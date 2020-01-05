@@ -29,7 +29,7 @@ public:
   void goDown(int steps);
 
   // return points of perpendicular intersections
-  std::vector<Point> getIntersections(const Segment& test_segment);
+  std::vector<IntersectionData> getIntersections(const SegmentData& test_segment);
   std::vector<IntersectionData> getIntersections(const Wire& other_wire);
 
 private:
