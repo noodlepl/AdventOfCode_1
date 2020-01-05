@@ -4,43 +4,49 @@
 
 #include "intcode.hpp"
 #include <iostream>
+#include <exception>
+#include <sstream>
+#include <cassert>
 
 namespace aoc {
+
+namespace {
+enum Opcode {
+  ADD = 1,
+  MULTIPLY = 2,
+  HALT = 99,
+};
+}
+
 Intcode::Intcode(std::vector<int> program) : program_(std::move(program)) {}
 
 void Intcode::run() {
-  int pos = 0;
+  int instr_ptr = 0;
   bool run = true;
 
-  while (run) {
-    auto opcode = program_[pos];
-    auto numPos1 = 0;
-    auto numPos2 = 0;
-    auto resultPos = 0;
+  try {
+    while (run) {
 
-    switch(opcode) {
-    case 1:
-      numPos1 = program_[pos + 1];
-      numPos2 = program_[pos + 2];
-      resultPos = program_[pos + 3];
-      program_[resultPos] = program_[numPos1] + program_[numPos2];
-      std::cout << "Opcode 1: num[" << numPos1 << "](" << program_[numPos1] << ") + num[" << numPos2 << "](" << program_[numPos2] << ") = " << program_[resultPos] << " at " << resultPos << std::endl;
-      break;
-    case 2:
-      numPos1 = program_[pos + 1];
-      numPos2 = program_[pos + 2];
-      resultPos = program_[pos + 3];
-      program_[resultPos] = program_[numPos1] * program_[numPos2];
-      std::cout << "Opcode 2: num[" << numPos1 << "](" << program_[numPos1] << ") * num[" << numPos2 << "](" << program_[numPos2] << ") = " << program_[resultPos] << " at " << resultPos << std::endl;
-      break;
-    case 99:
-      run = false;
-      break;
-    default:
-      std::cout << "Error opcode " << opcode << std::endl;
+      auto opcode = getValue(instr_ptr);
+
+      switch(opcode) {
+      case ADD:
+        execAdd(instr_ptr);
+        break;
+      case MULTIPLY:
+        execMultiply(instr_ptr);
+        break;
+      case HALT:
+        run = false;
+        break;
+      default:
+        std::cout << "Error opcode " << opcode << std::endl;
+      }
+
+      instr_ptr += 4;
     }
-
-    pos += 4;
+  } catch(const std::exception& ex) {
+    std::cerr << "Exception occured. " << ex.what() << std::endl;
   }
 }
 
@@ -48,6 +54,45 @@ void Intcode::display() {
   for (auto num : program_) {
     std::cout << num << ",";
   }
+}
+
+int Intcode::getValue(int index) {
+  if (index >= program_.size()) {
+    std::stringstream msg;
+    msg << "Couldn't get value from position " << index << ". Size of program is " << program_.size();
+    throw std::invalid_argument(msg.str());
+  }
+  return program_[index];
+}
+
+void Intcode::execAdd(int instr_ptr) {
+  assert (getValue(instr_ptr) == ADD);
+
+  int numPos1 = getValue(instr_ptr + 1);
+  int numPos2 = getValue(instr_ptr + 2);
+  int resultPos = getValue(instr_ptr + 3);
+  setValue(resultPos, getValue(numPos1) + getValue(numPos2));
+
+  std::cout << "Opcode 1: num[" << numPos1 << "](" << program_[numPos1] << ") + num[" << numPos2 << "](" << program_[numPos2] << ") = " << program_[resultPos] << " at " << resultPos << std::endl;
+}
+
+void Intcode::execMultiply(int instr_ptr) {
+  assert (getValue(instr_ptr) == MULTIPLY);
+
+  int numPos1 = program_[instr_ptr + 1];
+  int numPos2 = program_[instr_ptr + 2];
+  int resultPos = program_[instr_ptr + 3];
+  program_[resultPos] = program_[numPos1] * program_[numPos2];
+  std::cout << "Opcode 2: num[" << numPos1 << "](" << program_[numPos1] << ") * num[" << numPos2 << "](" << program_[numPos2] << ") = " << program_[resultPos] << " at " << resultPos << std::endl;
+}
+
+void Intcode::setValue(int index, int value) {
+  if (index >= program_.size()) {
+    std::stringstream msg;
+    msg << "Couldn't store value at position " << index << ". Size of program is " << program_.size();
+    throw std::invalid_argument(msg.str());
+  }
+  program_[index] = value;
 }
 
 }
