@@ -50,13 +50,13 @@ void Intcode::run() {
   }
 }
 
-void Intcode::display() {
+void Intcode::display() const {
   for (auto num : program_) {
     std::cout << num << ",";
   }
 }
 
-int Intcode::getValue(int index) {
+int Intcode::getValue(int index) const {
   if (index >= program_.size()) {
     std::stringstream msg;
     msg << "Couldn't get value from position " << index << ". Size of program is " << program_.size();

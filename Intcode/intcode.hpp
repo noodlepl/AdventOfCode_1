@@ -15,8 +15,8 @@ namespace aoc {
     Intcode(std::vector<int> program);
 
     void run();
-    void display();
-    int getValue(int index);
+    void display() const;
+    int getValue(int index) const;
     void setValue(int index, int value);
     void loadProgram(std::vector<int> program);
 
