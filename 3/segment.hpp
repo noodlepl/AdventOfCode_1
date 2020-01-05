@@ -9,7 +9,10 @@
 namespace aoc{
 class Segment {
 public:
-  Segment(Point first, Point second);
+  constexpr Segment(const Point& first, const Point& second);
+
+  constexpr Point getFirst() const noexcept;
+  constexpr Point getSecond() const noexcept;
 
 private:
   Point first_;
