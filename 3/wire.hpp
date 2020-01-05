@@ -11,10 +11,13 @@
 namespace aoc {
 class Wire {
 public:
-  void goRight(int steps);
-  void goLeft(int steps);
-  void goUp(int steps);
-  void goDown(int steps);
+  const Segment& goRight(int steps);
+  const Segment& goLeft(int steps);
+  const Segment& goUp(int steps);
+  const Segment& goDown(int steps);
+
+  // return points of perpendicular intersections
+  std::vector<Point> isCrossedBy(const Segment& segment);
 
 private:
   std::vector<Segment> segments_;

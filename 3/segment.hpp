@@ -24,8 +24,8 @@ class Segment {
 public:
   constexpr Segment(const Point& first, const Point& second) noexcept : first_(first), second_(second) {}
 
-  constexpr Point first() const noexcept {return first_;}
-  constexpr Point second() const noexcept {return second_;}
+  constexpr const Point& first() const noexcept {return first_;}
+  constexpr const Point& second() const noexcept {return second_;}
   constexpr bool crosessWith(const Segment& other) const noexcept {
     Orientation o1 = orientation(first_, second_, other.first());
     Orientation o2 = orientation(first_, second_, other.second());
