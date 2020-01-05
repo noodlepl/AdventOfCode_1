@@ -95,4 +95,8 @@ void Intcode::setValue(int index, int value) {
   program_[index] = value;
 }
 
+void Intcode::loadProgram(std::vector<int> program) {
+  program_ = std::move(program);
+}
+
 }

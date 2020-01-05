@@ -16,9 +16,10 @@ namespace aoc {
     void run();
     void display();
     int getValue(int index);
+    void setValue(int index, int value);
+    void loadProgram(std::vector<int> program);
 
   private:
-    void setValue(int index, int value);
     void execAdd(int instr_ptr);
     void execMultiply(int instr_ptr);
 
