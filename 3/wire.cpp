@@ -34,7 +34,19 @@ namespace aoc {
     return segments_.emplace_back(first, second);
   }
 
-  std::vector<Point> Wire::isCrossedBy(const Segment& segment) {
+  std::vector<Point> Wire::getIntersections(const Wire& other_wire) {
+    std::vector<Point> intersections;
+    for (auto&& segment : other_wire.segments_) {
+      auto segment_intersections = getIntersections(segment);
+      for (auto&& point : segment_intersections) {
+        intersections.push_back(point);
+      }
+    }
+
+    return intersections;
+  }
+
+  std::vector<Point> Wire::getIntersections(const Segment &segment) {
     std::vector<Point> intersections;
     for(auto&& wire_seg : segments_) {
       if (wire_seg.crosessWith(segment)) {

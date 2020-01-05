@@ -17,7 +17,10 @@ public:
   const Segment& goDown(int steps);
 
   // return points of perpendicular intersections
-  std::vector<Point> isCrossedBy(const Segment& segment);
+  std::vector<Point> getIntersections(const Segment &segment);
+  std::vector<Point> getIntersections(const Wire& other_wire);
+
+  const std::vector<Segment>& segments() {return segments_;}
 
 private:
   std::vector<Segment> segments_;
