@@ -9,10 +9,10 @@
 namespace aoc {
 class Point {
 public:
-  constexpr Point(int x, int y) noexcept;
+  constexpr Point(int x, int y) noexcept : x_(x), y_(y){}
 
-  constexpr int x() const noexcept;
-  constexpr int y() const noexcept;
+  constexpr int x() const noexcept {return x_;}
+  constexpr int y() const noexcept {return y_;}
 
 private:
   int x_;

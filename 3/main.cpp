@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "segment.hpp"
+
 std::vector<int> loadInput(const std::string& path) {
   std::ifstream fs(path);
   std::vector<int> result;
@@ -23,6 +25,9 @@ std::vector<int> loadInput(const std::string& path) {
   return result;
 }
 
-int main() {
+using namespace aoc;
 
+int main() {
+  Segment segment(Point(0, 0), Point(1, 2));
+  segment.getFirst();
 }
