@@ -11,6 +11,7 @@
 namespace aoc {
   class Intcode {
   public:
+    Intcode() = default;
     Intcode(std::vector<int> program);
 
     void run();

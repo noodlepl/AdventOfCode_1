@@ -38,7 +38,7 @@ int main() {
 //  intcode.display();
 
   auto data = loadInput("input");
-  aoc::Intcode intcode(data);
+  aoc::Intcode intcode;
 
   for(int noun = 0; noun < std::numeric_limits<int>::max(); ++noun) {
     for (int verb = 0; verb < std::numeric_limits<int>::max(); ++verb) {
