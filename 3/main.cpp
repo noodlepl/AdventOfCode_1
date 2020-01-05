@@ -29,5 +29,5 @@ using namespace aoc;
 
 int main() {
   Segment segment(Point(0, 0), Point(1, 2));
-  segment.getFirst();
+  segment.first();
 }

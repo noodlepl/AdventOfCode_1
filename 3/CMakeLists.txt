@@ -1,5 +1,5 @@
 
-add_executable(AdventOfCode_3 main.cpp segment.cpp point.cpp)
+add_executable(AdventOfCode_3 main.cpp)
 
 target_link_libraries(AdventOfCode_3)
 
