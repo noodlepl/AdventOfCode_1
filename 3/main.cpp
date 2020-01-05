@@ -57,9 +57,20 @@ std::vector<Wire> loadInput(const std::string& path) {
 int main() {
   auto wires = loadInput("input");
 
-  const auto& first_wire_segments = wires[0].segments();
+  auto intersections = wires[0].getIntersections(wires[1]);
 
-  for (auto&& segment : first_wire_segments) {
+  if (intersections.size() > 0) {
+    const Point origin(0, 0);
+    int min_distance = intersections[0].manhattanDistance(origin);
+    for (auto&& point : intersections) {
+      auto distance = point.manhattanDistance(origin);
+      min_distance = std::min(min_distance, distance);
+    }
 
+    std::cout << "Closest intersection is " << min_distance << " away." << std::endl;
+  } else {
+    std::cerr << "No intersections found" << std::endl;
   }
+
+  return 0;
 }

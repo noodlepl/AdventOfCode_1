@@ -5,6 +5,7 @@
 #ifndef ADVENTOFCODE_POINT_HPP
 #define ADVENTOFCODE_POINT_HPP
 
+#include <algorithm>
 
 namespace aoc {
 class Point {
@@ -13,6 +14,10 @@ public:
 
   constexpr int x() const noexcept {return x_;}
   constexpr int y() const noexcept {return y_;}
+
+  int manhattanDistance(const Point& other) {
+    return std::abs(x_ - other.x_) + std::abs(y_ - other.y_);
+  }
 
 private:
   int x_;
