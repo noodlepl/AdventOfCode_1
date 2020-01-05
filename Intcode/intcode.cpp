@@ -73,7 +73,7 @@ void Intcode::execAdd(int instr_ptr) {
   int resultPos = getValue(instr_ptr + 3);
   setValue(resultPos, getValue(numPos1) + getValue(numPos2));
 
-  std::cout << "Opcode 1: num[" << numPos1 << "](" << program_[numPos1] << ") + num[" << numPos2 << "](" << program_[numPos2] << ") = " << program_[resultPos] << " at " << resultPos << std::endl;
+//  std::cout << "Opcode 1: num[" << numPos1 << "](" << program_[numPos1] << ") + num[" << numPos2 << "](" << program_[numPos2] << ") = " << program_[resultPos] << " at " << resultPos << std::endl;
 }
 
 void Intcode::execMultiply(int instr_ptr) {
@@ -83,7 +83,7 @@ void Intcode::execMultiply(int instr_ptr) {
   int numPos2 = program_[instr_ptr + 2];
   int resultPos = program_[instr_ptr + 3];
   program_[resultPos] = program_[numPos1] * program_[numPos2];
-  std::cout << "Opcode 2: num[" << numPos1 << "](" << program_[numPos1] << ") * num[" << numPos2 << "](" << program_[numPos2] << ") = " << program_[resultPos] << " at " << resultPos << std::endl;
+//  std::cout << "Opcode 2: num[" << numPos1 << "](" << program_[numPos1] << ") * num[" << numPos2 << "](" << program_[numPos2] << ") = " << program_[resultPos] << " at " << resultPos << std::endl;
 }
 
 void Intcode::setValue(int index, int value) {
