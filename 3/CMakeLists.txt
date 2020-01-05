@@ -1,5 +1,5 @@
 
-add_executable(AdventOfCode_3 main.cpp)
+add_executable(AdventOfCode_3 main.cpp wire.cpp wire.hpp)
 
 target_link_libraries(AdventOfCode_3)
 
