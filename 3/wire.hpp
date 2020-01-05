@@ -11,19 +11,29 @@
 namespace aoc {
 class Wire {
 public:
-  const Segment& goRight(int steps);
-  const Segment& goLeft(int steps);
-  const Segment& goUp(int steps);
-  const Segment& goDown(int steps);
+  struct SegmentData {
+    SegmentData(const Point& first, const Point& second, int distance) : segment(first, second), distance_from_origin(distance){}
+    Segment segment;
+    int distance_from_origin;
+  };
+
+  struct IntersectionData {
+    IntersectionData(const Point& point, int distance) : intersection(point), total_distance_from_origin(distance) {}
+    Point intersection;
+    int total_distance_from_origin;
+  };
+
+  void goRight(int steps);
+  void goLeft(int steps);
+  void goUp(int steps);
+  void goDown(int steps);
 
   // return points of perpendicular intersections
-  std::vector<Point> getIntersections(const Segment &segment);
-  std::vector<Point> getIntersections(const Wire& other_wire);
-
-  const std::vector<Segment>& segments() {return segments_;}
+  std::vector<Point> getIntersections(const Segment& test_segment);
+  std::vector<IntersectionData> getIntersections(const Wire& other_wire);
 
 private:
-  std::vector<Segment> segments_;
+  std::vector<SegmentData> segments_;
 };
 }
 
