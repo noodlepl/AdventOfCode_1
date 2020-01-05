@@ -40,22 +40,23 @@ int main() {
   auto data = loadInput("input");
   aoc::Intcode intcode;
   bool done = false;
+  constexpr int target = 19690720;
 
-  for(int noun = 0; noun < std::numeric_limits<int>::max(); ++noun) {
-    for (int verb = 0; verb < std::numeric_limits<int>::max(); ++verb) {
+  for(int noun = 0; noun < data.size(); ++noun) {
+    for (int verb = 0; verb < data.size(); ++verb) {
+      std::cout << "noun=" << noun << " verb=" << verb << std::endl;
       intcode.loadProgram(data);
       intcode.setValue(1, noun);
-      intcode.setValue(2, noun);
+      intcode.setValue(2, verb);
       intcode.run();
-      if (intcode.getValue(0) == 19690720) {
+      if (intcode.getValue(0) == target) {
         done = true;
         std::cout << "Finished! Noun = " << noun << ", verb = " << verb << std::endl;
         break;
       }
-
-      if (done) {
-        break;
-      }
+    }
+    if (done) {
+      break;
     }
   }
 
