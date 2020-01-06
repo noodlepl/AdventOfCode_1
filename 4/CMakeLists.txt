@@ -1,0 +1,1 @@
+add_executable(AdventOfCode_4 main.cpp)
