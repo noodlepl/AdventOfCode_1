@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <cassert>
+#include <algorithm>
 
 namespace {
 constexpr int kMinRange = 372037;
@@ -15,30 +16,26 @@ void collectDigits(std::vector<int>& digits, int num) {
   digits.push_back(num % 10);
 }
 
-bool checkForDoubles(const std::vector<int>& digits) {
+bool anyDoubles(const std::vector<int> &digits) {
   assert(digits.size() >= 2);
-  int prev = digits[0];
-  for (int i = 1; i < digits.size(); ++i) {
-    auto current = digits[i];
-    if (current == prev)
-      return true;
-    prev = current;
-  }
 
-  return false;
+  auto next = digits.cbegin() + 1;
+  return std::any_of(digits.cbegin(), digits.cend() - 1, [&next](int current){
+    const bool are_equal = current == *next;
+    ++next;
+    return are_equal;
+  });
 }
 
 bool isNotDecreasing(const std::vector<int>& digits) {
   assert(digits.size() >= 2);
-  int prev = digits[0];
-  for (int i = 1; i < digits.size(); ++i) {
-    auto current = digits[i];
-    if (current < prev)
-      return false;
-    prev = current;
-  }
+  auto next = digits.cbegin() + 1;
 
-  return true;
+  return std::all_of(digits.cbegin(), digits.cend() - 1, [&next](int current){
+    const bool is_not_decreasing = *next >= current;
+    ++next;
+    return is_not_decreasing;
+  });
 }
 
 int main() {
@@ -48,7 +45,7 @@ int main() {
     std::vector<int> num_digits;
     num_digits.reserve(6);
     collectDigits(num_digits, test_num);
-    bool doubles = checkForDoubles(num_digits);
+    bool doubles = anyDoubles(num_digits);
     bool not_decreasing = isNotDecreasing(num_digits);
     if (doubles && not_decreasing) {
       ++count;
