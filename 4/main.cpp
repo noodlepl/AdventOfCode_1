@@ -24,7 +24,7 @@ bool checkForDoubles(const std::vector<int>& digits) {
       return true;
     prev = current;
   }
-  
+
   return false;
 }
 
@@ -35,13 +35,27 @@ bool isNotDecreasing(const std::vector<int>& digits) {
     auto current = digits[i];
     if (current < prev)
       return false;
+    prev = current;
   }
 
   return true;
 }
 
 int main() {
+  int count = 0;
 
+  for (int test_num = kMinRange; test_num <= kMaxRange; ++test_num) {
+    std::vector<int> num_digits;
+    num_digits.reserve(6);
+    collectDigits(num_digits, test_num);
+    bool doubles = checkForDoubles(num_digits);
+    bool not_decreasing = isNotDecreasing(num_digits);
+    if (doubles && not_decreasing) {
+      ++count;
+    }
+  }
+
+  std::cout << "Answer: " << count << "\n";
 
   return 0;
 }
