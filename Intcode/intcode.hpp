@@ -23,6 +23,8 @@ namespace aoc {
   private:
     void execAdd(int instr_ptr);
     void execMultiply(int instr_ptr);
+    void execInput(int instr_ptr);
+    void execOutput(int instr_ptr);
 
   private:
     std::vector<int> program_;

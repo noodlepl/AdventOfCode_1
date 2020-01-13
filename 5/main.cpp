@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <limits>
+#include <array>
 
 std::vector<int> loadInput(const std::string& path) {
   std::ifstream fs(path);
@@ -30,6 +30,8 @@ int main() {
   aoc::Intcode intcode(loadInput("input"));
 
   intcode.display();
+  
+  std::array<int,5> a = {5,6,7,8};
 
   return 0;
 }
