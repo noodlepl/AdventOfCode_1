@@ -14,6 +14,8 @@ namespace {
 enum Opcode {
   ADD = 1,
   MULTIPLY = 2,
+  INPUT = 3,
+  OUTPUT = 4,
   HALT = 99,
 };
 }
