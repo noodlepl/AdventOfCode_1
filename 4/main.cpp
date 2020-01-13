@@ -3,6 +3,7 @@
 #include <vector>
 #include <cassert>
 #include <algorithm>
+#include <map>
 
 namespace {
 constexpr int kMinRange = 372037;
@@ -27,6 +28,31 @@ bool anyDoubles(const std::vector<int> &digits) {
   });
 }
 
+bool anyDoubleOnly(const std::vector<int> &digits) {
+  assert (digits.size() >= 0);
+
+  auto prev = digits.cbegin();
+  auto it = prev + 1;
+  bool double_only = false;
+  int repeat_count = 0;
+
+  for (;it < digits.cend(); ++prev, ++it) {
+    if (*it == *prev) {
+      ++repeat_count;
+      if (double_only) double_only = false;
+    } else {
+      repeat_count = 0;
+      if (double_only) break;
+    }
+
+    if (repeat_count == 1) {
+      double_only = true;
+    }
+  }
+
+  return double_only;
+}
+
 bool isNotDecreasing(const std::vector<int>& digits) {
   assert(digits.size() >= 2);
   auto next = digits.cbegin() + 1;
@@ -45,14 +71,15 @@ int main() {
     std::vector<int> num_digits;
     num_digits.reserve(6);
     collectDigits(num_digits, test_num);
-    bool doubles = anyDoubles(num_digits);
+    bool doubles_only = anyDoubleOnly(num_digits);
     bool not_decreasing = isNotDecreasing(num_digits);
-    if (doubles && not_decreasing) {
+    if (doubles_only && not_decreasing) {
       ++count;
     }
   }
 
   std::cout << "Answer: " << count << "\n";
+
 
   return 0;
 }
