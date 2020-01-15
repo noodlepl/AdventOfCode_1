@@ -18,6 +18,32 @@ enum Opcode {
   OUTPUT = 4,
   HALT = 99,
 };
+
+class Program {
+public:
+  Program(std::vector<int> code) : code_(code) {}
+
+  class iterator {
+  public:
+    using value_type = int;
+    using reference = int&;
+    using pointer = int*;
+    using difference_type = std::ptrdiff_t;
+    using iterator_category = std::forward_iterator_tag;
+
+    iterator(int address = 0) : current_address_(address) {}
+
+  private:
+    int current_address_;
+  };
+
+  iterator begin() {return iterator();};
+  iterator end() {return iterator(code_.size());};
+
+private:
+  std::vector<int> code_;
+};
+
 }
 
 Intcode::Intcode(std::vector<int> program) : program_(std::move(program)) {}
