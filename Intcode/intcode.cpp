@@ -37,6 +37,7 @@ public:
     pointer operator->() {return &**this;}
 
     iterator& operator++() {
+      // TODO: Parse opcodes
       current_ += instruction_step(static_cast<Opcode>(*current_));
       return *this;
     }
