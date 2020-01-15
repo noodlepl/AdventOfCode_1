@@ -19,9 +19,9 @@ enum Opcode {
   HALT = 99,
 };
 
-class Program {
+class ProgramExecutor {
 public:
-  Program(std::vector<int> code) : code_(code) {}
+  ProgramExecutor(std::vector<int> program) : program_(program) {}
 
   class iterator {
   public:
@@ -31,17 +31,43 @@ public:
     using difference_type = std::ptrdiff_t;
     using iterator_category = std::forward_iterator_tag;
 
-    iterator(int address = 0) : current_address_(address) {}
+    iterator(std::vector<int>::iterator it) : current_(it) {}
+
+    reference operator*() {return *current_;}
+    pointer operator->() {return &**this;}
+
+    iterator& operator++() {
+      current_ += instruction_step(static_cast<Opcode>(*current_));
+      return *this;
+    }
+    iterator operator++(int) {
+      const auto temp(*this);
+      ++*this;
+      return temp;
+    }
 
   private:
-    int current_address_;
+    int instruction_step(Opcode opcode) {
+      switch(opcode) {
+      case ADD:
+      case MULTIPLY:
+        return 4;
+      case INPUT:
+      case OUTPUT:
+      case HALT:
+        return 2;
+      }
+    }
+
+  private:
+    std::vector<int>::iterator current_;
   };
 
-  iterator begin() {return iterator();};
-  iterator end() {return iterator(code_.size());};
+  iterator begin() {return iterator(program_.begin());};
+  iterator end() {return iterator(program_.end());};
 
 private:
-  std::vector<int> code_;
+  std::vector<int> program_;
 };
 
 }
